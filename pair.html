@@ -1,184 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JAILBREAK-MD | CYBER LINK</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Glitch UI</title>
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: black;
-      font-family: 'Orbitron', monospace;
-      color: #00ff00;
-      overflow: hidden;
-    }
+    <!-- Font 1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font 2 -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            text-align: center;
+            font-size: 1.5em;
+        }
 
-    .box {
-      width: 350px;
-      padding: 20px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 10px;
-      border: 2px solid #00ff00;
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-      animation: flicker 2s infinite alternate;
-    }
+        /* Multi-Color Input Glitch */
+        @keyframes inputGlitch {
+            0% { text-shadow: 2px 2px red, -2px -2px blue; }
+            25% { text-shadow: -2px -2px yellow, 2px 2px white; }
+            50% { text-shadow: 2px -2px purple, -2px 2px red; }
+            75% { text-shadow: -2px 2px blue, 2px -2px yellow; }
+            100% { text-shadow: none; }
+        }
 
-    @keyframes flicker {
-      0% { box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); }
-      100% { box-shadow: 0 0 20px rgba(0, 255, 0, 1); }
-    }
+        /* Scratch Distortion for Code */
+        @keyframes scratch {
+            0% { transform: skewX(-5deg); text-shadow: 3px 3px red; }
+            25% { transform: skewX(5deg); text-shadow: -3px -3px blue; }
+            50% { transform: skewX(-10deg); text-shadow: 5px 5px white; }
+            75% { transform: skewX(10deg); text-shadow: -5px -5px purple; }
+            100% { transform: none; }
+        }
 
-    .centered-text {
-      font-size: 18px;
-      text-shadow: 0 0 10px #00ff00;
-    }
+        /* Apply glitch effect on input */
+        .glitch-input {
+            animation: inputGlitch 1.25s ease-in-out;
+        }
 
-    .input-container {
-      display: flex;
-      background: black;
-      border: 2px solid #00ff00;
-      border-radius: 5px;
-      padding: 0.3rem;
-      width: 100%;
-    }
+        /* Apply scratch effect on 6-digit code */
+        .scratch {
+            animation: scratch 1.25s ease-in-out;
+        }
 
-    .input-container input {
-      flex: 1;
-      background: black;
-      color: #00ff00;
-      font-size: 16px;
-      font-family: 'Orbitron', monospace;
-      border: none;
-      padding: 10px;
-      caret-color: #00ff00;
-      text-align: center;
-      animation: typing 3s infinite;
-    }
+        /* Font Change with Scratch Effect */
+        .font-1 {
+            font-family: 'Orbitron', sans-serif;
+        }
 
-    @keyframes typing {
-      50% { border-right: 2px solid #00ff00; }
-      100% { border-right: 2px solid transparent; }
-    }
+        .font-2 {
+            font-family: 'VT323', monospace;
+        }
 
-    .input-container button {
-      padding: 10px;
-      background: #00ff00;
-      font-weight: bold;
-      color: black;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: 0.3s;
-    }
+        .font-scratch {
+            animation: scratch 0.8s ease-in-out;
+        }
 
-    .input-container button:hover {
-      background: #ff0000;
-      color: white;
-      text-shadow: 0 0 5px white;
-    }
+        input, button {
+            font-size: 1em;
+            padding: 10px;
+            margin: 10px;
+            background: black;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+        }
 
-    #loading-spinner {
-      display: none;
-      color: #00ff00;
-      margin-top: 10px;
-    }
+        button:hover {
+            background: #00ff00;
+            color: black;
+        }
 
-    .fa-spinner {
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Glitch Effect */
-    .glitch {
-      position: relative;
-      color: #00ff00;
-      text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.8);
-      animation: glitch 1s infinite alternate;
-    }
-
-    @keyframes glitch {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(2px, -2px); text-shadow: -2px -2px 5px rgba(0, 255, 0, 0.5); }
-      50% { transform: translate(-2px, 2px); text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.5); }
-      75% { transform: translate(1px, -1px); text-shadow: -1px -1px 5px rgba(0, 255, 0, 0.8); }
-      100% { transform: translate(-1px, 1px); text-shadow: 1px 1px 5px rgba(0, 255, 0, 0.8); }
-    }
-
-    /* Matrix Scanlines */
-    .scanlines {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(0, 255, 0, 0.1),
-        rgba(0, 255, 0, 0.1) 1px,
-        transparent 2px,
-        transparent 4px
-      );
-      pointer-events: none;
-    }
-  </style>
+        #loading-spinner {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="scanlines"></div>
-  <div class="container">
-    <div class="main">
-      <div class="box">
-        <h3 class="glitch">JAILBREAK-MD LINK</h3>
-        <h6 class="centered-text">🔢 Enter your number with country code</h6>
-        <div class="input-container">
-          <input placeholder="+263xxxxxx" type="number" id="number">
-          <button id="submit">LINK</button>
-        </div>
-        <div id="loading-spinner">
-          <i class="fas fa-spinner fa-spin"></i>
-        </div>
-        <main id="pair"></main>
-      </div>
-    </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-  <script>
-    let a = document.getElementById("pair");
-    let b = document.getElementById("submit");
-    let c = document.getElementById("number");
 
-    b.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<p style="color:red;font-weight:bold">❗Enter your number.</p>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<p style="color:red;font-weight:bold">❗Invalid number format.</p>';
-      } else {
-        document.getElementById("loading-spinner").style.display = "block";
-        a.innerHTML = '';
-        let { data } = await axios(`/code?number=${c.value}`);
-        let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = `<p class="glitch">CODE: <span style="color:#00ff00;font-weight:bold">${code}</span></p>`;
-        document.getElementById("loading-spinner").style.display = "none";
-      }
-    });
-  </script>
+    <h2 id="text" class="font-1">ENTER NUMBER</h2>
+
+    <input type="text" id="number" placeholder="Enter number...">
+    <button id="submit">Submit</button>
+    <div id="loading-spinner">Loading...</div>
+    <div id="pair"></div>
+
+    <script>
+        let a = document.getElementById("pair");
+        let b = document.getElementById("submit");
+        let c = document.getElementById("number");
+        let textElement = document.getElementById("text");
+        let fonts = ["font-1", "font-2"];
+        let currentFont = 0;
+
+        // Change font every 4 seconds with scratch effect
+        setInterval(() => {
+            textElement.classList.add("font-scratch");
+            setTimeout(() => {
+                textElement.classList.remove(fonts[currentFont]);
+                currentFont = (currentFont + 1) % fonts.length;
+                textElement.classList.add(fonts[currentFont]);
+                textElement.classList.remove("font-scratch");
+            }, 800);
+        }, 4000);
+
+        // Trigger input glitch when user types
+        c.addEventListener("input", () => {
+            c.classList.add("glitch-input");
+            setTimeout(() => c.classList.remove("glitch-input"), 1250);
+        });
+
+        // Fetch code and trigger scratch effect
+        b.addEventListener("click", async (e) => {
+            e.preventDefault();
+            if (!c.value) {
+                a.innerHTML = '<p style="color:red;font-weight:bold">❗Enter your number.</p>';
+            } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+                a.innerHTML = '<p style="color:red;font-weight:bold">❗Invalid number format.</p>';
+            } else {
+                document.getElementById("loading-spinner").style.display = "block";
+                a.innerHTML = '';
+                let data = { code: Math.floor(100000 + Math.random() * 900000) }; // Simulating a response
+                
+                let code = data.code || "❗ Service Unavailable";
+                a.innerHTML = `<p class="scratch">JAILBREAK-MD: CODE <span style="color:#00ff00;font-weight:bold">${code}</span></p>`;
+                
+                // Remove scratch effect after 1.25s
+                setTimeout(() => {
+                    a.classList.remove("scratch");
+                }, 1250);
+                
+                document.getElementById("loading-spinner").style.display = "none";
+            }
+        });
+    </script>
+
 </body>
 </html>
