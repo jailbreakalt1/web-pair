@@ -1,208 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAILBREAK-MD Cyber UI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAIR CODE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #141414;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: #fff; /* Set the text color to white */
+    }
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-    <style>
-        body {
-            background-color: black;
-            color: #00ff00;
-            text-align: center;
-            font-size: 1.5em;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+    .box {
+      width: 300px;
+      height: 330px;
+      padding: 20px;
+      position: relative;
+      text-align: center;
+      background-color: #a20000; /* Update background color */
+      border-radius: 10px;
+      transform: perspective(1000px) rotateY(0deg);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
 
-        /* Background Matrix Effect */
-        .matrix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: black;
-        }
+    #text {
+      color: #ffffff; /* Set the text color to black (#000) */
+    }
 
-        canvas {
-            display: block;
-        }
+    .input-container input {
+      color: #ffffff; /* Set the text color to black (#000) */
+    }
 
-        /* Position Adjustments */
-        .title-wrapper {
-            height: 50px; /* Prevents overlap */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .centered-text {
+      color: #ffffff; /* Set the text color to black (#000) */
+    }
 
-        .position-top { transform: translateY(-80px); }
-        .position-center { transform: translateY(0); }
-        .position-bottom { transform: translateY(80px); }
+    .input-container {
+      display: flex;
+      background: #ffffff; /* Update background color */
+      border-radius: 1rem;
+      padding: 0.3rem;
+      gap: 0.3rem;
+      max-width: 300px;
+      width: 100%;
+    }
 
-        /* Multi-Color Input Glitch */
-        @keyframes inputGlitch {
-            0% { text-shadow: 2px 2px red, -2px -2px blue; }
-            25% { text-shadow: -2px -2px yellow, 2px 2px white; }
-            50% { text-shadow: 2px -2px purple, -2px 2px red; }
-            75% { text-shadow: -2px 2px blue, 2px -2px yellow; }
-            100% { text-shadow: none; }
-        }
+    .input-container input {
+      border-radius: 0.8rem 0 0 0.8rem;
+      background: #000000; /* Update background color */
+      width: 89%;
+      flex-basis: 75%;
+      padding: 1rem;
+      border: none;
+      border-left: 2px solid #075e54; /* Update border color */
+      color: #ecf0f1; /* Set text color to light grey */
+      transition: all 0.2s ease-in-out;
+    }
 
-        /* Scratch Distortion */
-        @keyframes scratch {
-            0% { transform: skewX(-5deg); text-shadow: 3px 3px red; }
-            25% { transform: skewX(5deg); text-shadow: -3px -3px blue; }
-            50% { transform: skewX(-10deg); text-shadow: 5px 5px white; }
-            75% { transform: skewX(10deg); text-shadow: -5px -5px purple; }
-            100% { transform: none; }
-        }
+    .input-container input:focus {
+      border-left: 2px solid #075e54;
+      outline: none;
+      box-shadow: inset 13px 13px 10px #075e54, inset -13px -13px 10px #2c3e50;
+    }
 
-        /* Font Change with Scratch */
-        .font-1 { font-family: 'Orbitron', sans-serif; }
-        .font-2 { font-family: 'VT323', monospace; }
-        .font-scratch { animation: scratch 0.8s ease-in-out; }
+    .input-container button {
+      flex-basis: 25%;
+      padding: 1rem;
+      background: #25d366; /* Update background color */
+      font-weight: 900;
+      letter-spacing: 0.3rem;
+      text-transform: uppercase;
+      color: white;
+      border: none;
+      width: 100%;
+      border-radius: 0 1rem 1rem 0;
+      transition: all 0.2s ease-in-out;
+    }
 
-        input, button {
-            font-size: 1em;
-            padding: 10px;
-            margin: 10px;
-            background: black;
-            color: #00ff00;
-            border: 2px solid #00ff00;
-        }
+    .input-container button:hover {
+      background: #2980b9; /* Update background color on hover */
+    }
 
-        button:hover {
-            background: #00ff00;
-            color: black;
-        }
+    #waiting-message {
+      color: #ffffff; /* Set text color to light grey */
+      margin-top: 10px;
+    }
 
-        #loading-spinner { display: none; }
+    @media (max-width: 500px) {
+      .input-container {
+        flex-direction: column;
+      }
 
-        h2 {
-            transition: transform 0.8s ease-in-out;
-        }
-    </style>
+      .input-container input {
+        border-radius: 0.8rem;
+      }
+
+      .input-container button {
+        padding: 1rem;
+        border-radius: 0.8rem;
+      }
+    }
+
+    .centered-text {
+      text-align: center;
+    }
+
+    /* Add styles for the loading spinner */
+    #loading-spinner {
+      display: none;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .fa-spinner {
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-
-    <canvas class="matrix"></canvas>
-
-    <div class="title-wrapper">
-        <h2 id="text" class="font-1 position-top">ENTER NUMBER</h2>
+  <div class="container">
+    <div class="main">
+      <div class="box" id="box">
+        <div id="text">
+          <i class="fa fa-user"></i>
+          <p>
+            <h3 class="centered-text">Link Robin with phone number</h3>
+            <br>
+            <h6>🔢 Enter your number with country code. ROBIN WEB PAIR</h6>
+            <div class="input-container">
+              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code, ROBIN WEB PAIR" name="">
+              <button id="submit">Submit ROBIN</button>
+            </div>
+            <!-- Add the loading spinner -->
+            <div id="loading-spinner">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <br>
+            <br>
+            <main id="pair"></main>
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+  ></script>
+  <script>
+    
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let box = document.getElementById("box");
 
-    <input type="text" id="number" placeholder="Enter number...">
-    <button id="submit">Submit</button>
-    <div id="loading-spinner">Loading...</div>
-    <div id="pair"></div>
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "✔️ COPIED";
+      obj.style = "color:blue;font-weight:bold";
+      obj.size = "5";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style = "color:white;font-weight-bold";
+        obj.size = "5";
+      }, 500);
+    }
 
-    <script>
-        let a = document.getElementById("pair");
-        let b = document.getElementById("submit");
-        let c = document.getElementById("number");
-        let textElement = document.getElementById("text");
-        let fonts = ["font-1", "font-2"];
-        let positions = ["position-top", "position-center", "position-bottom"];
-        let currentFont = 0;
-        let currentPosition = 0;
-
-        // Change font and position every 4 seconds
-        setInterval(() => {
-            textElement.classList.add("font-scratch");
-
-            setTimeout(() => {
-                textElement.classList.remove(fonts[currentFont], positions[currentPosition]);
-                currentFont = (currentFont + 1) % fonts.length;
-                currentPosition = (currentPosition + 1) % positions.length;
-
-                textElement.classList.add(fonts[currentFont], positions[currentPosition]);
-                textElement.classList.remove("font-scratch");
-            }, 800);
-        }, 4000);
-
-        // Trigger input glitch when user types
-        c.addEventListener("input", () => {
-            c.classList.add("glitch-input");
-            setTimeout(() => c.classList.remove("glitch-input"), 1250);
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
+      } else {
+        const bc = c.value.replace(/[^0-9]/g, "");
+        let bb = "";
+        let bbc = "";
+        const cc = bc.split('');
+        cc.map(a => {
+          bbc += a;
+          if (bbc.length == 3) {
+            bb += " " + a;
+          } else if (bbc.length == 8) {
+            bb += " " + a;
+          } else {
+            bb += a;
+          }
         });
-
-        // Fetch code and trigger scratch effect
-        b.addEventListener("click", async (e) => {
-            e.preventDefault();
-            if (!c.value) {
-                a.innerHTML = '<p style="color:red;font-weight:bold">❗Enter your number.</p>';
-            } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-                a.innerHTML = '<p style="color:red;font-weight:bold">❗Invalid number format.</p>';
-            } else {
-                document.getElementById("loading-spinner").style.display = "block";
-                a.innerHTML = '';
-                let data = { code: Math.floor(100000 + Math.random() * 900000) }; // Simulating a response
-                
-                let code = data.code || "❗ Service Unavailable";
-                a.innerHTML = `<p class="scratch">JAILBREAK-MD: CODE <span style="color:#00ff00;font-weight:bold">${code}</span></p>`;
-                
-                // Remove scratch effect after 1.25s
-                setTimeout(() => {
-                    a.classList.remove("scratch");
-                }, 1250);
-                
-                document.getElementById("loading-spinner").style.display = "none";
-            }
-        });
-
-        // Matrix Falling Letters Effect
-        const canvas = document.querySelector(".matrix");
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const letters = "JAILBREAK".split("");
-        const fontSize = 20;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(0);
-
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#00ff00";
-            ctx.font = `${fontSize}px monospace`;
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-
-                ctx.fillText(text, x, y);
-
-                if (y > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(drawMatrix, 50);
-
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            drops.fill(0);
-        });
-
-    </script>
-
+        c.type = "text";
+        c.value = "+" + bb;
+        c.style = "color:white;font-size:20px";
+        // Show the loading spinner
+        document.getElementById("loading-spinner").style.display = "block";
+        a.innerHTML = ''; // Clear the previous content
+        let { data } = await axios(`/code?number=${bc}`);
+        let code = data.code || "❗ Service Unavailable";
+        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
+        // Hide the loading spinner when the process is complete
+        document.getElementById("loading-spinner").style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
